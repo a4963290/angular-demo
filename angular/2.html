@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="demo">
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+
+	<body ng-controller="indexController">
+		<script src="//www.runoob.com/try/angularjs/1.2.5/angular.min.js"></script>
+		<script src="js/jquery-1.7.2.min.js"></script>
+		
+		<button my-alert content="ok">A</button>
+		<input type="text" ng-model="name" />
+		<div ng-bind="name"></div>
+	</body>
+	<script>
+		var app = angular.module('demo', []);
+		app.controller('indexController',['$rootScope','$scope',function($rootScope,$scope){
+			$scope.name='';
+		}]);
+		
+		app.directive('myAlert', ['$rootScope',
+			function($rootScope) {
+				var dialog = $('<div>');
+				dialog.css({
+					'display': 'none',
+					'position': 'fixed',
+					'left': '400px',
+					'top': '200px',
+					'border': '1px solid green',
+					'background-color': '#eee',
+					'z-index': '10',
+					'width':'500px',
+					'height':'300px'
+				});
+				$('body').append(dialog);
+				dialog.click(function() {
+					dialog.hide();
+				});
+				return {
+					restrict: 'A',
+					link: function(scope, element, attr) {
+						element.on('click', function() {
+							dialog.html(attr.content);
+							dialog.show();
+						});
+					}
+				}
+			}
+		]);
+	</script>
+
+</html>

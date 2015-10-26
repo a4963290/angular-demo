@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="cookiemod">
+
+	<head lang="en">
+		<meta charset="UTF-8">
+		<title></title>
+		<!--<script src="js/angular.min.js"></script>-->
+		<script type="text/javascript" src="js/angular-all.js"></script>
+		<!--<script src="js/angular-cookies.js"></script>-->
+		<script>
+			var ckmod = angular.module('cookiemod', ['ngCookies']);
+			ckmod.controller('showCookie', ['$scope', '$cookieStore',
+				function($scope, $cookieStore) {
+					$scope.setCookieinfo = function() {
+						$cookieStore.put('name', 'lanveer');
+					}
+					$scope.getCookieinfo = function() {
+						var favoriteCookie = $cookieStore.get('name');
+						console.log(favoriteCookie);
+					}
+					$scope.removeCookieinfo = function() {
+						$cookieStore.remove('name');
+					}
+				}
+			]);
+		</script>
+	</head>
+
+	<body>
+		<div ng-controller="showCookie">
+			<button ng-click="setCookieinfo()">设置</button>
+			<button ng-click="getCookieinfo()">获得</button>
+			<button ng-click="removeCookieinfo()">删除</button>
+
+		</div>
+	</body>
+
+</html>

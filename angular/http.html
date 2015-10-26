@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<script src="js/angular.js"></script>
+	<!--<script src="http://apps.bdimg.com/libs/angular.js/1.3.9/angular.min.js"></script>-->
+	<script>
+		var myApp = angular.module('myAppp', [])
+		 myApp.controller('personController', function($scope, $http) {
+			//			$scope.firstname = "456";
+			//			$scope.name = "yjl";
+			//			$scope.formData = $scope.firstname;
+			$scope.processForm = function() {
+				//				console.log("测试一下" + $scope.firstName);
+				//				var p = $scope.firstname;
+				$scope.firstname = $scope.firstname;
+//				console.log($scope.firstName);
+				$http.get("tuling.php?q=" + $scope.firstname, {
+					params: {
+						q: "$scope.firstname",
+					}
+				}).success(function(data) {
+					console.log(data);
+				}).error(function(data) {
+					console.log(data);
+					console.log("失败");
+				});
+			};
+			/*$http.get("json.php")
+				.success(function(response) {
+					$scope.names = response.records;
+				});*/
+		});
+	</script>
+
+	<body>
+		<div ng-app="myAppp" ng-controller="personController">
+			<button ng-click="processForm()">$http请求</button>
+			<input ng-keyup="processForm()" type="text" ng-model="firstName">
+			<p>你输入的为： {{ firstName }}</p>
+			<p>我的第一个表达式： {{ 5 + 5 }}</p>
+			<ul>
+				<li ng-repeat="x in names">
+					{{ x.Name + ', ' + x.Country }}
+				</li>
+			</ul>
+		</div>
+	</body>
+
+</html>

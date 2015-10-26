@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<meta charset="utf-8" />
+
+	<body>
+
+		<div ng-app="myAppp" ng-controller="personController" ng-init="quantity=1;cost=5;person={firstName:'John',lastName:'Doe'};points=[1,15,19,2,40]">
+			<p>在输入框中尝试输入：</p>
+			<p>姓名：
+				<input type="text" ng-model="name">
+			</p>
+			<p ng-bind="name"></p>
+			<p>我的第一个表达式： {{ 5 + 5 }}</p>
+			<p>总价: {{ quantity * cost }}</p>
+			<p>总价: <span ng-bind="quantity * cost"></span></p>
+			<p>姓为 {{ person.lastName }}</p>
+			<p>姓为 <span ng-bind="person.lastName"></span></p>
+			<p>第三个值为 {{ points[2] }}</p>
+
+			<p>姓名：
+				<input type="text" ng-model="firstName">
+			</p>
+			<p>你输入的为： {{ person.fullName() }}</p>
+			名:
+			<input type="text" ng-model="person.firstName">
+			<br> 姓:
+			<input type="text" ng-model="person.lastName">
+			<br>
+			<br> 姓名: {{person.fullName()}}
+		</div>
+		<p>总价: {{ quantity * cost }}</p>
+
+		<div ng-app="">
+			<p>我的第一个表达式： {{ 5 + 5 }}</p>
+		</div>
+
+		<div ng-app="" ng-init="quantity=1;cost=5">
+			<p>总价: {{ quantity * cost }}</p>
+		</div>
+
+		<script src="//www.runoob.com/try/angularjs/1.2.5/angular.min.js"></script>
+
+		<script>
+			/*function personController($scope) {
+			    $scope.person = {
+			        firstName: "John",
+			        lastName: "Doe",
+			        fullName: function() {
+			            var x = $scope.person;	
+			            return x.firstName + " " + x.lastName;
+			        }
+			    };
+			}*/
+			
+			var myApp =angular.module('myAppp',[])
+			myApp.controller('personController',function($scope){
+				$scope.person = {
+			        firstName: "John",
+			        lastName: "Doe",
+			        fullName: function() {
+			            var x = $scope.person;	
+			            return x.firstName + " " + x.lastName;
+			        }
+			    };
+			    $scope.name = "yjl";
+			});
+		</script>
+
+	</body>
+
+</html>

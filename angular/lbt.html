@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>轮播图自己写插件【yjl】</title>
+	</head>
+
+	<script>
+		var BigImgUrl = Array("img/5.jpg", "img/6.jpg", "img/7.jpg", "img/8.jpg", "img/9.jpg", "img/10.jpg", "img/11.jpg");
+		var ThumbTxt = Array("千汁芥末焗虾球", "姚嘉隆", "嘉隆", "你好", "我", "大家", "测试");
+		 //存放大图的数组注意记得写双引号
+		function show(str) {
+			var ci = document.getElementById("changimg");
+			var ct = document.getElementById("changetxt");
+			//clear()函数将下面case "0"部分内容写成函数以后方便修改
+			function clear() {
+				for (i = 0; i < 7; i++) {
+					document.getElementById('smallimg' + i).style.border = "0px solid #ccbda2";
+					document.getElementById('smallimg' + i).style.width = "93px";
+					document.getElementById('smallimg' + i).style.height = "83px";
+				};
+				str.style.border = "5px solid #ccbda2";
+				str.style.width = "83px";
+				str.style.height = "73px";
+			}
+			switch (str.alt) {
+				case "0":
+					ci.src = BigImgUrl[0];
+					//根据str.alt alt是从DOM的<img>标签中获取的alt属性值，然后选择对应的case选项
+					//赋值到ci.src改变其地址值，取BigImgUrl[0]数组第一个值
+					ct.innerHTML = "千汁芥末焗虾球";
+					//这个是切换需要改变的文字
+					for (i = 0; i < 7; i++) {
+						document.getElementById('smallimg' + i).style.border = "0px solid #ccbda2";
+						document.getElementById('smallimg' + i).style.width = "93px";
+						document.getElementById('smallimg' + i).style.height = "83px";
+					};
+					//这个循环为清除加边框之后，然后切换后去除边框后的样式，图片长宽各减少10px以适应5px的边框
+					//循环有多少就清除多少个小图片的样式，可以转为函数
+					//注意document.getElementById('smallimg' + i) i是变量当i等于1的时候等同于document.getElementById(smallimg1)，这样就可以捕捉多个类似的ID
+					//因为ID是唯一的，上面的方法可以循环巧妙改变多个相似的ID的样式或者属性
+					str.style.border = "5px solid #ccbda2";
+					str.style.width = "83px";
+					str.style.height = "73px";
+					break;
+				case "1":
+					ci.src = BigImgUrl[1];
+					ct.innerHTML = ThumbTxt[1];
+					clear();
+					//这里将上面的循环改成一个函数，方便统一修改
+					break;
+				case "2":
+					ci.src = BigImgUrl[2];
+					ct.innerHTML = ThumbTxt[2];
+					clear();
+					break;
+				case "3":
+					ci.src = BigImgUrl[3];
+					ct.innerHTML = ThumbTxt[3];
+					clear();
+					break;
+				case "4":
+					ci.src = BigImgUrl[4];
+					ct.innerHTML = ThumbTxt[4];
+					clear();
+					break;
+				case "5":
+					ci.src = BigImgUrl[5];
+					ct.innerHTML = ThumbTxt[5];
+					clear();
+					break;
+				case "6":
+					ci.src = BigImgUrl[6];
+					ct.innerHTML = ThumbTxt[6];
+					clear();
+					break;
+				default:
+					alert("出错");
+			}
+		};
+
+		function movethumb(action) {
+			//翻前翻后的函数,根据DOM中<img>属性中alt的值判断前还是后
+			var tf = document.getElementById("tf");
+			if (action.alt == "pre") {
+				tf.style.transform = "translate3d(0px, 0px, 0px)";
+				tf.style.transitionDuration = "0.5s";
+				//注意js格式是这样的object.style.transitionDuration="5s"
+				//CSS格式是这样的transition-duration: 5s;
+				//有明显区别！！！
+				//让过渡效果持续 0.5 秒：
+			} else {
+				tf.style.transform = "translate3d(-111px, 0px, 0px)";
+				tf.style.transitionDuration = "0.5s";
+			}
+		};
+	</script>
+
+	<body>
+
+		<div style="width: 780px;text-align: center;margin: 0 auto;">
+			<h1 class="mainTitle"><strong>點  心</strong></h1>
+			<br />
+			<img id="changimg" alt="" style="width:680px;height:565px; border:5px solid #ccbda2;" src="img/5.jpg" />
+			<p><b id="changetxt">千汁芥末焗虾球</b></p>
+			<!--初始显示的值，通过js后会产生改变-->
+			<br />
+
+			<div style="position:relative">
+
+				<img style="cursor:pointer;position:absolute;z-index:10;left:0px;top:24px;" src="img/pre.png" alt="pre" onclick="movethumb(this)" />
+				<div style="position:relative;display:inline-block;overflow:hidden;height:83px;width:666px;">
+					<ul id="tf" style="list-style: none;margin: 0px; padding: 0px; height: 83px;width:1600px;">
+						<li style="float:left">
+							<img id="smallimg0" style="cursor:pointer;margin-left:9px;margin-right:9px;" class="tab" alt="0" src="img/1.jpg" onclick="show(this)" /></li>
+						<li style="float:left">
+							<img id="smallimg1" style="cursor:pointer;margin-left:9px;margin-right:9px;" class="tab" alt="1" src="img/1.jpg" onclick="show(this)" /></li>
+						<li style="float:left">
+							<img id="smallimg2" style="cursor:pointer;margin-left:9px;margin-right:9px;" class="tab" alt="2" src="img/1.jpg" onclick="show(this)" /></li>
+						<li style="float:left">
+							<img id="smallimg3" style="cursor:pointer;margin-left:9px;margin-right:9px;" class="tab" alt="3" src="img/2.jpg" onclick="show(this)" /></li>
+						<li style="float:left">
+							<img id="smallimg4" style="cursor:pointer;margin-left:9px;margin-right:9px;" class="tab" alt="4" src="img/2.jpg" onclick="show(this)" /></li>
+						<li style="float:left">
+							<img id="smallimg5" style="cursor:pointer;margin-left:9px;margin-right:9px;" class="tab" alt="5" src="img/2.jpg" onclick="show(this)" /></li>
+						<li style="float:left">
+							<img id="smallimg6" style="cursor:pointer;margin-left:9px;margin-right:9px;" class="tab" alt="6" src="img/2.jpg" onclick="show(this)" /></li>
+					</ul>
+				</div>
+				<img style="cursor:pointer;position:absolute;z-index:10;right:0px;top:24px;" src="img/next.png" alt="next" onclick="movethumb(this)" />
+				<!--注意cursor:pointer;这个样式可以让鼠标指示改为小手,加强体验性-->
+			</div>
+
+			<br />
+			<br />
+			<!--这部分还没写,待续-->
+			<img style="cursor:pointer;" src="img/cicle-b.png" alt="" />
+			<img style="cursor:pointer;" src="img/cicle-b.png" alt="" />
+			<img style="cursor:pointer;" src="img/cicle-b.png" alt="" />
+			<img style="cursor:pointer;" src="img/cicle-b.png" alt="" />
+		</div>
+
+	</body>
+
+</html>
