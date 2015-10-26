@@ -36,8 +36,10 @@
 				link: function(scope, element, attrs) {
 					scope.showMe = false;
 					scope.toggle = function toggle() {
-						scope.showMe = !scope.showMe;
-					}
+							scope.showMe = !scope.showMe;
+						}
+						//dom操作，但一般不建议用
+					angular.element(document.querySelector('div')).addClass('we');
 				}
 			}
 		});
@@ -52,6 +54,13 @@
 			<expander class='expander' expander-title='title'>
 				{{text}}
 			</expander>
+			<!--等价于-->
+			<!--
+				因为设置了restrict: 'EA',
+				<div class='expander' expander-title='title'>
+				{{text}}
+			</div>
+			-->
 		</div>
 
 	</body>
