@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+
+	<body ng-app="OptionApp">
+		<script type="text/javascript" src="js/angular-all.js"></script>
+		<script>
+			var app = angular.module('OptionApp', []);
+			app.controller('OptionCtrl', ['$scope',
+				function($scope) {
+					$scope.seleted = '';
+					$scope.animals = [{
+						id: '00001',
+						name: '猫',
+						sex: '雌',
+						food: '鱼',
+						favor: '玩球',
+						//name: '安徽',
+						/*subCity: [{
+							name: '安庆',
+							subStore: [{
+								name: '安庆安晟机场路店'
+							}]
+						}],*/
+					}, {
+						id: '00002',
+						name: '狗',
+						sex: '雄',
+						food: '骨头',
+						favor: '接盘子'
+					}, {
+						id: '00003',
+						name: '兔',
+						sex: '雌',
+						food: '胡萝卜',
+						favor: '刨洞'
+					}, {
+						id: '00004',
+						name: '狮',
+						sex: '雄',
+						food: '肉',
+						favor: '猎物'
+					}];
+				}
+			]);
+		</script>
+		<div ng-controller="OptionCtrl">
+			<select ng-model="seleted" ng-options="a.name for a in animals">
+				<option value="">请选择你的萌宠</option>
+			</select>
+
+			<select ng-model="seleted" ng-options="(a.name + '爱吃' + a.food) for a in animals">
+				<option value="">请选择你的萌宠</option>
+			</select>
+
+			<select ng-model="seleted" ng-options="(a.name + '的爱好是' + a.favor) group by a.sex for a in animals">
+				<option value="">请选择你的萌宠</option>
+			</select>
+			<!--<select ng-model="seleted" ng-options="(a.subCity in animals">
+				<option value="">请选择你的萌宠</option>
+			</select>-->
+			<select ng-model="seleted" ng-options="a.name for a in animals">
+				<option value="">请选择</option>
+			</select>
+
+			<select ng-model="seleted" ng-options="a.name group by a.sex for a in animals">
+				<option value="">请选择</option>
+			</select>
+
+		</div>
+		<!--
+			第一种情况：for array data sources
+			label for value in array                  // labe是a.name value是a a是json数组入面的对象 animals是json数组 a。name是json数组入面的对象的值
+  select as label for value in array                  // 等同于 label for value in array
+			label group by group for value in array   // group就是例如a.sex 再选一个对象的值，作为分类依据
+  select as label group by group for value in array   // 等同于label group by group for value in array
+  
+                                         第二种情况：for object data sources
+		-->
+	</body>
+
+</html>
